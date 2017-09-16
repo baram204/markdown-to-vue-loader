@@ -131,10 +131,9 @@ export default function markdownToVueLoader(source, map) {
 
               $script.remove();
               $style.remove();
-              $html('template').each((j, template) => {
-                // <template> is child element of <head>, so move it to <body>
-                $body.append($(template).html());
-              });
+
+              // Move <template> from <head> to <body>
+              $body.append($html('template'));
 
               mixin.push(`template: ${JSON.stringify(`<div>${$body.html()}</div>`)}`);
 
