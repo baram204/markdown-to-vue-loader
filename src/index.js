@@ -108,7 +108,7 @@ export default function markdownToVueLoader(source, map) {
                 mixin.push(`beforeCreate: function () {
                   var style = document.createElement('style');
                   style.textContent = ${JSON.stringify(style)};
-                  document.head.append(style);
+                  document.head.appendChild(style);
                   this.$styleInjectedByMarkdownToVueLoader = style;
                 }`);
                 mixin.push(`beforeDestroy: function () {
@@ -142,7 +142,7 @@ export default function markdownToVueLoader(source, map) {
                 mixin.push(`beforeCreate: function () {
                   var style = document.createElement('style');
                   style.textContent = ${JSON.stringify(style)};
-                  document.head.append(style);
+                  document.head.appendChild(style);
                   this.$styleInjectedByMarkdownToVueLoader = style;
                 }`);
                 mixin.push(`beforeDestroy: function () {
