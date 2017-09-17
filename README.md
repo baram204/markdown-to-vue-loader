@@ -1,4 +1,4 @@
-# markdown-to-vue-loader [![npm package](https://img.shields.io/npm/v/markdown-to-vue-loader.svg?maxAge=2592000)](https://www.npmjs.com/package/markdown-to-vue-loader)
+# markdown-to-vue-loader
 
 > Markdown to Vue component loader for [Webpack](https://webpack.js.org/).
 
