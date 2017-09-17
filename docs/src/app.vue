@@ -2,7 +2,7 @@
   <div class="app">
     <header class="navbar navbar-light navbar-expand-md">
       <nav class="container-fluid">
-        <a class="navbar-brand" href="./">markdown-to-vue-loader</a>
+        <a class="navbar-brand" href="./">{{ pkg.name }}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -17,8 +17,8 @@
     </header>
     <main>
       <div class="jumbotron bg-primary text-white">
-        <h1>markdown-to-vue-loader <small>v0.1.0</small></h1>
-        <p class="lead">Markdown to Vue component loader for Webpack.</p>
+        <h1>{{ pkg.name }} <small>v{{ pkg.version }}</small></h1>
+        <p class="lead">{{ pkg.description }}</p>
       </div>
       <div class="container-fluid">
         <h2 class="mb-4">Examples</h2>
@@ -57,6 +57,7 @@
   import ExampleHtml from './examples/html.md';
   import ExampleJavascript from './examples/javascript.md';
   import ExampleOthers from './examples/others.md';
+  import pkg from '../../package.json';
 
   export default {
     components: {
@@ -67,6 +68,7 @@
     },
 
     data: () => ({
+      pkg,
       vue: ExampleVue.source,
       html: ExampleHtml.source,
       javascript: ExampleJavascript.source,

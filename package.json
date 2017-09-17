@@ -1,6 +1,6 @@
 {
   "name": "markdown-to-vue-loader",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Markdown to Vue component loader for Webpack.",
   "main": "dist/index.js",
   "module": "dist/esm.js",
@@ -12,6 +12,10 @@
     "email": "chenfengyuan@outlook.com",
     "url": "http://chenfengyuan.com"
   },
+  "files": [
+    "src",
+    "dist/*.js"
+  ],
   "keywords": [
     "markdown",
     "vue",
@@ -55,7 +59,6 @@
     "eslint-config-airbnb-base": "^12.0.0",
     "eslint-plugin-html": "^3.2.1",
     "eslint-plugin-import": "^2.7.0",
-    "extract-text-webpack-plugin": "^3.0.0",
     "html-webpack-plugin": "^2.30.1",
     "ip": "^1.1.5",
     "memory-fs": "^0.4.1",

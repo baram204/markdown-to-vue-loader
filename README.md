@@ -16,7 +16,7 @@
 ### Install
 
 ```bash
-npm install markdown-to-vue-loader --save-dev
+npm install markdown-to-vue-loader vue-loader webpack --save-dev
 ```
 
 ### Usage
@@ -50,7 +50,7 @@ module: {
 - Type: `String`
 - Default: `'component'`
 
-Namespace for component name.
+The namespace for component name.
 
 For example, if this is set to `'awesome-component'`, then given this input (`example.md`):
 
@@ -71,7 +71,7 @@ will generate (`example.vue`):
   <div>
     <h1>Example</h1>
     <awesome-component-example-0></awesome-component-example-0>
-    <pre class="language-vue"><code>&lt;template&gt;
+    <pre><code class="language-vue">&lt;template&gt;
   &lt;p&gt;Hello, World!&lt;/p&gt;
 &lt;/template&gt;</code></pre>
   </div>
@@ -92,7 +92,7 @@ will generate (`example.vue`):
 - Type: `String`
 - Default: `''`
 
-Wrapper for a component content.
+The wrapper for component content. Supports to use Vue component as the wrapper.
 
 For example, if this is set to `'<section></section>'`, then given this input (`example.md`):
 
@@ -111,7 +111,7 @@ will generate (`example.vue`):
   <div>
     <h1>Example</h1>
     <section><component-example-0></component-example-0></section>
-    <pre class="language-html"><code>&lt;p&gt;Hello, World!&lt;/p&gt;</code></pre>
+    <pre><code class="language-html">&lt;p&gt;Hello, World!&lt;/p&gt;</code></pre>
   </div>
 </template>
 <script>
@@ -173,7 +173,7 @@ will generate (`example.vue`):
   <div>
     <h1>Example</h1>
     <component-example-0></component-example-0>
-    <pre class="language-js"><code>export default {
+    <pre><code class="language-js">export default {
   template: '&lt;p&gt;Hello, World!&lt;/p&gt;'
 }</code></pre>
   </div>
@@ -203,7 +203,7 @@ The class name for each `<pre></pre>` element.
 - Default: `''`
 - Example: `'<div class="example-code"></div>'`
 
-The wrapper for each `<pre></pre>` element.
+The wrapper for each `<pre></pre>` element. Supports to use Vue component as the wrapper.
 
 ### tableClass
 
@@ -219,7 +219,7 @@ The class name for each `<table></table>` element.
 - Default: `''`
 - Example: `'<div class="table-container"></div>'`
 
-The wrapper for each `<table></table>` element.
+The wrapper for each `<table></table>` element. Supports to use Vue component as the wrapper.
 
 ## Inline comment options
 
@@ -259,10 +259,10 @@ will generate (`example.vue`):
   <div>
     <h1>Example</h1>
     <component-example-0></component-example-0>
-    <pre class="language-js"><code>export default {
+    <pre><code class="language-js">export default {
   template: '&lt;p&gt;Hello, World!&lt;/p&gt;'
 };</code></pre>
-    <pre class="language-vue"><code>&lt;template&gt;
+    <pre><code class="language-vue">&lt;template&gt;
   &lt;p&gt;Hello, World!&lt;/p&gt;
 &lt;/template&gt;</code></pre>
   </div>

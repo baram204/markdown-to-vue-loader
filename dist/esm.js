@@ -1,11 +1,11 @@
 /*!
- * Markdown To Vue Loader v0.1.0
+ * Markdown To Vue Loader v0.1.1
  * https://github.com/xkeshi/markdown-to-vue-loader
  *
  * Copyright (c) 2017 Xkeshi
  * Released under the MIT license
  *
- * Date: 2017-09-15T14:04:59.095Z
+ * Date: 2017-09-17T07:21:44.260Z
  */
 
 import cheerio from 'cheerio';
@@ -102,7 +102,7 @@ function markdownToVueLoader(source, map) {
                 }
 
                 if (style) {
-                  mixin.push('beforeCreate: function () {\n                  var style = document.createElement(\'style\');\n                  style.textContent = ' + JSON.stringify(style) + ';\n                  document.head.append(style);\n                  this.$styleInjectedByMarkdownToVueLoader = style;\n                }');
+                  mixin.push('beforeCreate: function () {\n                  var style = document.createElement(\'style\');\n                  style.textContent = ' + JSON.stringify(style) + ';\n                  document.head.appendChild(style);\n                  this.$styleInjectedByMarkdownToVueLoader = style;\n                }');
                   mixin.push('beforeDestroy: function () {\n                  var $style = this.$styleInjectedByMarkdownToVueLoader;\n                  $style.parentNode.removeChild($style);\n                }');
                 }
 
@@ -121,15 +121,14 @@ function markdownToVueLoader(source, map) {
 
                 $script.remove();
                 $style.remove();
-                _$html('template').each(function (j, template) {
-                  // <template> is child element of <head>, so move it to <body>
-                  $body.append($(template).html());
-                });
+
+                // Move <template> from <head> to <body>
+                $body.append(_$html('template'));
 
                 mixin.push('template: ' + JSON.stringify('<div>' + $body.html() + '</div>'));
 
                 if (_style) {
-                  mixin.push('beforeCreate: function () {\n                  var style = document.createElement(\'style\');\n                  style.textContent = ' + JSON.stringify(_style) + ';\n                  document.head.append(style);\n                  this.$styleInjectedByMarkdownToVueLoader = style;\n                }');
+                  mixin.push('beforeCreate: function () {\n                  var style = document.createElement(\'style\');\n                  style.textContent = ' + JSON.stringify(_style) + ';\n                  document.head.appendChild(style);\n                  this.$styleInjectedByMarkdownToVueLoader = style;\n                }');
                   mixin.push('beforeDestroy: function () {\n                  var $style = this.$styleInjectedByMarkdownToVueLoader;\n                  $style.parentNode.removeChild($style);\n                }');
                 }
 

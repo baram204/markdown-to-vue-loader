@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1 (Sep 17, 2017)
+
+- Improved browser compatibility.
+
 ## 0.1.0 (Sep 15, 2017)
 
 - Supports to load a markdown file as a Vue component.
