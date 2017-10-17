@@ -13,14 +13,14 @@ module.exports = {
       format: 'cjs',
     },
     {
-      file: 'dist/esm.js',
+      file: 'dist/index.esm.js',
       format: 'es',
     },
   ],
   external: ['cheerio', 'loader-utils', 'markdown-it'],
   plugins: [
-    commonjs(),
     nodeResolve(),
+    commonjs(),
     babel({
       exclude: 'node_modules/**',
     }),
