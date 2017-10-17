@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0 (Oct 17, 2017)
+
+- Added a new option: `escapeApostrophes`.
+
 ## 0.1.1 (Sep 17, 2017)
 
 - Improved browser compatibility.

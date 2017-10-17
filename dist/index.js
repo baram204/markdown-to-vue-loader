@@ -1,11 +1,11 @@
 /*!
- * Markdown To Vue Loader v0.1.1
+ * Markdown To Vue Loader v0.2.0
  * https://github.com/xkeshi/markdown-to-vue-loader
  *
  * Copyright (c) 2017 Xkeshi
  * Released under the MIT license
  *
- * Date: 2017-09-17T07:21:44.260Z
+ * Date: 2017-10-17T09:27:44.430Z
  */
 
 'use strict';
@@ -26,6 +26,7 @@ var markdown = new MarkdownIt({
 var defaultOptions = {
   componentNamespace: 'component',
   componentWrapper: '',
+  escapeApostrophes: false,
   exportSource: false,
   languages: ['vue', 'html'],
   preClass: '',
@@ -35,12 +36,13 @@ var defaultOptions = {
 };
 
 // RegExps
+var REGEXP_APOSTROPHES = /&apos;/g;
+var REGEXP_COMMENT_OPTIONS = /^(no-)?vue-component$/;
 var REGEXP_HYPHENS_END = /-*$/;
 var REGEXP_HYPHENS_START = /^-*/;
 var REGEXP_LANGUAGE_PREFIXES = /lang(uage)-?/;
 var REGEXP_MODULE_EXPORTS = /(?:export\s+default|(?:module\.)?exports\s*=)/g;
 var REGEXP_NOT_WORDS = /\W/g;
-var REGEXP_COMMENT_OPTIONS = /^(no-)?vue-component$/;
 
 /**
  * Normalize script to valid VUe Component.
@@ -188,6 +190,10 @@ function markdownToVueLoader(source, map) {
 
   if (options.exportSource || components.length > 0) {
     output += '<script>\n  module.exports = {\n    ' + (options.exportSource ? 'source: ' + JSON.stringify(markdown.utils.escapeHtml(source)) + ',' : '') + '\n    ' + (components.length > 0 ? 'components: {' + components.join() + '}' : '') + '\n  };\n</script>';
+  }
+
+  if (!options.escapeApostrophes) {
+    output = output.replace(REGEXP_APOSTROPHES, '\'');
   }
 
   this.callback(null, output, map);

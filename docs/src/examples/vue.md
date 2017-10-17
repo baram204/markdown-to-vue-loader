@@ -4,7 +4,7 @@
 
 ```vue
 <template>
-  <div class="vue-code-block">{{ message }}</div>
+  <div class="vue-code-block" :style="{ 'margin-left': '1em' }">{{ message }}</div>
 </template>
 
 <script>

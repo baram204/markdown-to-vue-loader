@@ -2,7 +2,7 @@
 
 > The other code blocks will **NOT** be loaded as a Vue component by default.
 
-```bash
+```shell
 npm i markdown-to-vue-loader --save-dev
 ```
 

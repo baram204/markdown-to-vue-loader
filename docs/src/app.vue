@@ -9,7 +9,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbar-collapse" role="navigation">
           <nav class="nav navbar-nav">
             <a class="nav-link" href="//github.com/xkeshi/markdown-to-vue-loader/blob/master/README.md">Docs</a>
-            <a class="nav-link" href="//github.com/xkeshi/markdown-to-vue-loader" title="View source on GitHub">GitHub</a>
+            <a class="nav-link" href="//github.com/xkeshi/markdown-to-vue-loader" title="View the GitHub project">GitHub</a>
             <a class="nav-link" href="//github.com/xkeshi" title="About the team">About</a>
           </nav>
         </div>

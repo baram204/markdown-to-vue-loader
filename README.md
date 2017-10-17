@@ -132,7 +132,7 @@ will generate (`example.vue`):
 - Type: `Boolean`
 - Default: `false`
 
-Indicate if escape all apostrophes (`'` => `&apos;`) or not.
+Indicate if escape all apostrophes in html (`'` => `&apos;`) or not.
 
 ### exportSource
 
