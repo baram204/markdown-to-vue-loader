@@ -168,6 +168,17 @@ describe('markdown-to-vue-loader', () => {
       });
     });
 
+    it('escapeApostrophes', (done) => {
+      bundle({
+        entry: './test/fixtures/vue.md',
+      }, (content) => {
+        expect(content).to.contain('&apos;');
+        done();
+      }, {
+        escapeApostrophes: true,
+      });
+    });
+
     it('exportSource', (done) => {
       bundle({
         entry: './test/fixtures/vue.md',

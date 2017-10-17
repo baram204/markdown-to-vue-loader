@@ -2,7 +2,7 @@
 
 ```vue
 <template>
-  <p>Hello, {{ name }}!</p>
+  <p :style="{ color: 'blue' }">Hello, {{ name }}!</p>
 </template>
 
 <script>
