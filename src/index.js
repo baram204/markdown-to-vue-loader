@@ -12,6 +12,7 @@ const markdown = new MarkdownIt({
 const defaultOptions = {
   componentNamespace: 'component',
   componentWrapper: '',
+  escapeApostrophes: false,
   exportSource: false,
   languages: ['vue', 'html'],
   preClass: '',
@@ -21,12 +22,13 @@ const defaultOptions = {
 };
 
 // RegExps
+const REGEXP_APOSTROPHES = /&apos;/g;
+const REGEXP_COMMENT_OPTIONS = /^(no-)?vue-component$/;
 const REGEXP_HYPHENS_END = /-*$/;
 const REGEXP_HYPHENS_START = /^-*/;
 const REGEXP_LANGUAGE_PREFIXES = /lang(uage)-?/;
 const REGEXP_MODULE_EXPORTS = /(?:export\s+default|(?:module\.)?exports\s*=)/g;
 const REGEXP_NOT_WORDS = /\W/g;
-const REGEXP_COMMENT_OPTIONS = /^(no-)?vue-component$/;
 
 /**
  * Normalize script to valid VUe Component.
@@ -209,6 +211,10 @@ export default function markdownToVueLoader(source, map) {
     ${components.length > 0 ? `components: {${components.join()}}` : ''}
   };
 </script>`;
+  }
+
+  if (!options.escapeApostrophes) {
+    output = output.replace(REGEXP_APOSTROPHES, '\'');
   }
 
   this.callback(null, output, map);

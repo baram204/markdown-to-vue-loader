@@ -127,6 +127,13 @@ will generate (`example.vue`):
 </script>
 ```
 
+### escapeApostrophes
+
+- Type: `Boolean`
+- Default: `false`
+
+Indicate if escape all apostrophes (`'` => `&apos;`) or not.
+
 ### exportSource
 
 - Type: `Boolean`
