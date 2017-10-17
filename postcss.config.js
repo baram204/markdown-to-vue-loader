@@ -1,7 +1,7 @@
 module.exports = {
-  plugins: [
-    require('postcss-smart-import')(),
-    require('postcss-atrule-bem')(),
-    require('postcss-cssnext')(),
-  ],
+  plugins: {
+    'postcss-smart-import': {},
+    'postcss-atrule-bem': {},
+    'postcss-cssnext': {},
+  },
 };
