@@ -1,5 +1,7 @@
 # markdown-to-vue-loader
 
+[![Build Status](https://travis-ci.org/xkeshi/markdown-to-vue-loader.svg)](https://travis-ci.org/xkeshi/markdown-to-vue-loader)
+
 > Markdown to Vue component loader for [Webpack](https://webpack.js.org/).
 
 - The built-in markdown parser is [**markdown-it**](https://github.com/markdown-it/markdown-it).
@@ -15,7 +17,7 @@
 
 ### Install
 
-```bash
+```shell
 npm install markdown-to-vue-loader vue-loader webpack --save-dev
 ```
 
