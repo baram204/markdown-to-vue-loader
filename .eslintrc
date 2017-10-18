@@ -5,7 +5,8 @@
     "node": true
   },
   "rules": {
+    "global-require": "off",
     "import/no-extraneous-dependencies": "off",
-    "global-require": "off"
+    "no-param-reassign": "off"
   }
 }

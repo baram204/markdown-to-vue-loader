@@ -17,7 +17,12 @@ module.exports = {
       format: 'es',
     },
   ],
-  external: ['cheerio', 'loader-utils', 'markdown-it'],
+  external: [
+    'cheerio',
+    'loader-utils',
+    'markdown-it',
+    'postcss',
+  ],
   plugins: [
     nodeResolve(),
     commonjs(),
