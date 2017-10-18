@@ -136,15 +136,6 @@ describe('markdown-to-vue-loader', () => {
     });
   });
 
-  it('name contains not word characters', (done) => {
-    bundle({
-      entry: './test/fixtures/(name-contains-not-word-characters).md',
-    }, (content) => {
-      expect(content).to.contain('component-name-contains-not-word-characters-0');
-      done();
-    });
-  });
-
   it('style with scoped attribute', (done) => {
     bundle({
       entry: './test/fixtures/style-with-scoped-attribute.md',
@@ -251,6 +242,26 @@ describe('markdown-to-vue-loader', () => {
         done();
       }, {
         tableWrapper: '<div class="test-table-wrapper"></div>',
+      });
+    });
+  });
+
+  describe('misc', () => {
+    it('name contains not word characters', (done) => {
+      bundle({
+        entry: './test/fixtures/(name-contains-not-word-characters).md',
+      }, (content) => {
+        expect(content).to.contain('component-name-contains-not-word-characters-0');
+        done();
+      });
+    });
+
+    it('ECMAScript 6 module', (done) => {
+      bundle({
+        entry: './test/fixtures/es6-module.md',
+      }, (content) => {
+        expect(content).to.contain('require');
+        done();
       });
     });
   });

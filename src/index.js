@@ -29,6 +29,7 @@ const REGEXP_HYPHENS_END = /-*$/;
 const REGEXP_HYPHENS_START = /^-*/;
 const REGEXP_LANGUAGE_PREFIXES = /lang(uage)-?/;
 const REGEXP_MODULE_EXPORTS = /(?:export\s+default|(?:module\.)?exports\s*=)/g;
+const REGEXP_MODULE_IMPORTS = /(?:import)(?:\s+((?:[\s\S](?!import))+?)\s+(?:from))?\s+["']([^"']+)["']/g;
 const REGEXP_NOT_WORDS = /\W/g;
 
 /**
@@ -38,9 +39,19 @@ const REGEXP_NOT_WORDS = /\W/g;
  * @returns {string} The normalize component.
  */
 function normalizeComponent(script, mixin) {
+  script = script.replace(REGEXP_MODULE_IMPORTS, (matched, moduleExports, moduleName) => {
+    if (moduleExports) {
+      return `var ${moduleExports} = require('${moduleName}')`;
+    } else if (moduleName) {
+      return `require('${moduleName}')`;
+    }
+
+    return matched;
+  }).replace(REGEXP_MODULE_EXPORTS, 'return');
+
   return `(function () {
     var component = (function () {
-      ${script.replace(REGEXP_MODULE_EXPORTS, 'return')}
+      ${script}
     }());
 
     if (typeof component === 'function') {
