@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.0 (Oct 18, 2017)
+
+- Supports scoped css: when a `<style>` tag has the `scoped` attribute, its CSS will apply to elements of the current component only.
+
 ## 0.2.0 (Oct 17, 2017)
 
 - Added a new option: `escapeApostrophes`.
