@@ -13,7 +13,10 @@
 
 <style>
   .html-code-block {
+    border-radius: .25rem;
+    border: 1px solid #eee;
     margin-bottom: 1rem;
+    padding: .5rem 1rem;
   }
 </style>
 ```
@@ -21,5 +24,5 @@
 <!-- no-vue-component -->
 
 ```html
-<p class="html-code-block">This is a code block of HTML too, but will not be loaded as a Vue component because of the predefined <code>&lt;!-- vue-component --&gt;</code> comment.</p>
+<p>This is a code block of HTML too, but will not be loaded as a Vue component because of the predefined <code>&lt;!-- vue-component --&gt;</code> comment.</p>
 ```
