@@ -136,11 +136,20 @@ describe('markdown-to-vue-loader', () => {
     });
   });
 
-  it('(name-contains-not-word-characters)', (done) => {
+  it('name contains not word characters', (done) => {
     bundle({
       entry: './test/fixtures/(name-contains-not-word-characters).md',
     }, (content) => {
       expect(content).to.contain('component-name-contains-not-word-characters-0');
+      done();
+    });
+  });
+
+  it('style with scoped attribute', (done) => {
+    bundle({
+      entry: './test/fixtures/style-with-scoped-attribute.md',
+    }, (content) => {
+      expect(content).to.contain('.component-style-with-scoped-attribute-0 p');
       done();
     });
   });

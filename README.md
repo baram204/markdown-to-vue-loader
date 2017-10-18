@@ -287,6 +287,37 @@ will generate (`example.vue`):
 </script>
 ```
 
+## Scoped CSS
+
+When a `<style>` tag has the `scoped` attribute, its CSS will apply to elements of the current component only.
+
+For example, given this input:
+
+```html
+<template>
+  <p>Hello, World!</p>
+</template>
+
+<style scoped>
+  p {
+    color: green;
+  }
+</style>
+```
+
+will render as this:
+
+```html
+<div class="component-example-0">
+  <p>Hello, World!</p>
+</div>
+
+<style>
+  .component-example-0 p {
+    color: green;
+  }
+</style>
+```
 
 ## Versioning
 

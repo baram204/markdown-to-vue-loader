@@ -1,6 +1,7 @@
 import cheerio from 'cheerio';
 import loaderUtils from 'loader-utils';
 import MarkdownIt from 'markdown-it';
+import postcss from 'postcss';
 
 const path = require('path');
 
@@ -31,7 +32,7 @@ const REGEXP_MODULE_EXPORTS = /(?:export\s+default|(?:module\.)?exports\s*=)/g;
 const REGEXP_NOT_WORDS = /\W/g;
 
 /**
- * Normalize script to valid VUe Component.
+ * Normalize script to valid Vue Component.
  * @param {string} script - The raw script code of component.
  * @param {string} mixin - The mixin to component.
  * @returns {string} The normalize component.
@@ -90,80 +91,88 @@ export default function markdownToVueLoader(source, map) {
       $pre.children('code').each((i, code) => {
         const $code = $(code);
         const language = $code.attr('class').replace(REGEXP_LANGUAGE_PREFIXES, '');
+
+        if (options.languages.indexOf(language) === -1 && commentOption !== 'vue-component') {
+          return;
+        }
+
         const mixin = [];
         let component;
+        let scoped;
+        let style;
+        let template;
 
-        if (options.languages.indexOf(language) !== -1 || commentOption === 'vue-component') {
-          switch (language) {
-            case 'vue': {
-              const $html = cheerio.load($code.text());
-              const template = $html('template').html();
-              const style = $html('style').html();
+        switch (language) {
+          case 'vue': {
+            const $html = cheerio.load($code.text());
+            const $style = $html('style');
 
-              component = $html('script').html() || 'module.exports = {};';
-
-              if (template) {
-                mixin.push(`template: ${JSON.stringify(template)}`);
-              }
-
-              if (style) {
-                mixin.push(`beforeCreate: function () {
-                  var style = document.createElement('style');
-                  style.textContent = ${JSON.stringify(style)};
-                  document.head.appendChild(style);
-                  this.$styleInjectedByMarkdownToVueLoader = style;
-                }`);
-                mixin.push(`beforeDestroy: function () {
-                  var $style = this.$styleInjectedByMarkdownToVueLoader;
-                  $style.parentNode.removeChild($style);
-                }`);
-              }
-
-              break;
-            }
-
-            case 'html': {
-              const $html = cheerio.load($code.text());
-              const $body = $html('body');
-              const $script = $html('script');
-              const $style = $html('style');
-              const style = $style.html();
-
-              component = $script.html() || 'module.exports = {};';
-
-              $script.remove();
-              $style.remove();
-
-              // Move <template> from <head> to <body>
-              $body.append($html('template'));
-
-              mixin.push(`template: ${JSON.stringify(`<div>${$body.html()}</div>`)}`);
-
-              if (style) {
-                mixin.push(`beforeCreate: function () {
-                  var style = document.createElement('style');
-                  style.textContent = ${JSON.stringify(style)};
-                  document.head.appendChild(style);
-                  this.$styleInjectedByMarkdownToVueLoader = style;
-                }`);
-                mixin.push(`beforeDestroy: function () {
-                  var $style = this.$styleInjectedByMarkdownToVueLoader;
-                  $style.parentNode.removeChild($style);
-                }`);
-              }
-
-              break;
-            }
-
-            // case 'javascript':
-            // case 'js':
-            default:
-              component = $code.text();
+            component = $html('script').html() || 'module.exports = {};';
+            scoped = $style.attr('scoped');
+            style = $style.html();
+            template = $html('template').html();
+            break;
           }
+
+          case 'html': {
+            const $html = cheerio.load($code.text());
+            const $body = $html('body');
+            const $script = $html('script');
+            const $style = $html('style');
+
+            component = $script.html() || 'module.exports = {};';
+            scoped = $style.attr('scoped');
+            style = $style.html();
+            $script.remove();
+            $style.remove();
+
+            // Move <template> from <head> to <body>
+            $body.append($html('template'));
+            template = $body.html();
+            break;
+          }
+
+          // case 'javascript':
+          // case 'js':
+          default:
+            component = $code.text();
         }
 
         if (component) {
           mixin.push(`name: ${JSON.stringify(componentName)}`);
+
+          if (template) {
+            template = `<div class="${componentName}">${template}</div>`;
+            mixin.push(`template: ${JSON.stringify(template)}`);
+          }
+
+          if (style) {
+            if (typeof scoped !== 'undefined') {
+              const root = postcss.parse(style);
+
+              root.walkRules((rule) => {
+                if (rule.parent && rule.parent.name === 'keyframes') {
+                  return;
+                }
+
+                rule.selectors = rule.selectors.map(selector => `.${componentName} ${selector}`);
+              });
+
+              style = root.toResult().css;
+            }
+
+            mixin.push(`beforeCreate: function () {
+              var style = document.createElement('style');
+              style.textContent = ${JSON.stringify(style)};
+              document.head.appendChild(style);
+              this.$styleInjectedByMarkdownToVueLoader = style;
+            }`);
+            mixin.push(`beforeDestroy: function () {
+              var $style = this.$styleInjectedByMarkdownToVueLoader;
+              $style.parentNode.removeChild($style);
+            }`);
+          }
+
           components.push(`${JSON.stringify(componentName)}: ${normalizeComponent(component, `{${mixin.join()}}`)}`);
 
           const $component = $(`<${componentName}></${componentName}>`);
