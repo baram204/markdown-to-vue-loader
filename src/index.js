@@ -127,7 +127,7 @@ export default function markdownToVueLoader(source, map) {
             $style.remove();
 
             // Move <template> from <head> to <body>
-            $body.append($html('template'));
+            $body.append($html('head template'));
             template = $body.html();
             break;
           }
