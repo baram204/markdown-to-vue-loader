@@ -221,7 +221,7 @@ export default function markdownToVueLoader(source, map) {
   });
 
   let output = `<template>
-  <div>${$('body').html()}</div>
+  <div class="${normalizedResourceName}">${$('body').html()}</div>
 </template>`;
 
   if (options.exportSource || components.length > 0) {
