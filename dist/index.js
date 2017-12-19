@@ -1,11 +1,11 @@
 /*!
- * Markdown To Vue Loader v0.3.0
+ * Markdown To Vue Loader v0.4.0
  * https://github.com/xkeshi/markdown-to-vue-loader
  *
  * Copyright (c) 2017 Xkeshi
  * Released under the MIT license
  *
- * Date: 2017-10-18T09:24:45.963Z
+ * Date: 2017-12-19T07:04:37.081Z
  */
 
 'use strict';
@@ -216,7 +216,7 @@ function markdownToVueLoader(source, map) {
     }
   });
 
-  var output = '<template>\n  <div>' + $('body').html() + '</div>\n</template>';
+  var output = '<template>\n  <div class="' + normalizedResourceName + '">' + $('body').html() + '</div>\n</template>';
 
   if (options.exportSource || components.length > 0) {
     output += '<script>\n  module.exports = {\n    ' + (options.exportSource ? 'source: ' + JSON.stringify(markdown.utils.escapeHtml(source)) + ',' : '') + '\n    ' + (components.length > 0 ? 'components: {' + components.join() + '}' : '') + '\n  };\n</script>';

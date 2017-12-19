@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.0 (Dec 19, 2017)
+
+- Add a namespace class to the root element of a component.
+
 ## 0.3.0 (Oct 18, 2017)
 
 - Supports scoped css: when a `<style>` tag has the `scoped` attribute, its CSS will apply to elements of the current component only.
