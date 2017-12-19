@@ -1,7 +1,8 @@
 module.exports = {
   plugins: {
-    'postcss-smart-import': {},
+    'postcss-import': {},
     'postcss-atrule-bem': {},
     'postcss-cssnext': {},
+    'postcss-nested': {},
   },
 };
