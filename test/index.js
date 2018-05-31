@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MemoryFS = require('memory-fs');
 const { expect } = require('chai');
 
@@ -8,6 +9,7 @@ const mfs = new MemoryFS();
 
 function bundle(options, callback, loaderOptions = {}) {
   const config = webpackMerge({
+    mode: 'none',
     output: {
       path: path.resolve(__dirname, './expected'),
       filename: 'bundle.js',
@@ -15,17 +17,24 @@ function bundle(options, callback, loaderOptions = {}) {
     module: {
       rules: [
         {
+          test: /\.vue$/,
+          loader: 'vue-loader',
+        },
+        {
           test: /\.md$/,
           use: [
             'vue-loader',
             {
-              loader: path.resolve(__dirname, '../dist/index.js'),
+              loader: path.resolve(__dirname, '../dist/markdown-to-vue-loader.js'),
               options: loaderOptions,
             },
           ],
         },
       ],
     },
+    plugins: [
+      new VueLoaderPlugin(),
+    ],
   }, options);
   const webpackCompiler = webpack(config);
 
@@ -145,6 +154,37 @@ describe('markdown-to-vue-loader', () => {
     });
   });
 
+  it('style with keyframes', (done) => {
+    bundle({
+      entry: './test/fixtures/style-with-keyframes.md',
+    }, (content) => {
+      expect(content).to.contain('@keyframes fade');
+      done();
+    });
+  });
+
+  it('javascript code block with import', (done) => {
+    bundle({
+      entry: './test/fixtures/js-with-import.md',
+    }, (content) => {
+      expect(content).to.contain('require');
+      done();
+    }, {
+      languages: ['js', 'javascript'],
+    });
+  });
+
+  it('javascript code block with import from', (done) => {
+    bundle({
+      entry: './test/fixtures/js-with-import-from.md',
+    }, (content) => {
+      expect(content).to.contain('require');
+      done();
+    }, {
+      languages: ['js', 'javascript'],
+    });
+  });
+
   describe('options', () => {
     it('componentNamespace', (done) => {
       bundle({
@@ -252,15 +292,6 @@ describe('markdown-to-vue-loader', () => {
         entry: './test/fixtures/(name-contains-not-word-characters).md',
       }, (content) => {
         expect(content).to.contain('component-name-contains-not-word-characters-0');
-        done();
-      });
-    });
-
-    it('ECMAScript 6 module', (done) => {
-      bundle({
-        entry: './test/fixtures/es6-module.md',
-      }, (content) => {
-        expect(content).to.contain('require');
         done();
       });
     });

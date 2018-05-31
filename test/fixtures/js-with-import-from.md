@@ -1,4 +1,4 @@
-# ECMAScript 6 module
+# JavaScript code block with import from
 
 ```js
 import Vue from 'vue';
