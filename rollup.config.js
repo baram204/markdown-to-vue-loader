@@ -1,20 +1,16 @@
-const commonjs = require('rollup-plugin-commonjs');
-const nodeResolve = require('rollup-plugin-node-resolve');
 const babel = require('rollup-plugin-babel');
 const pkg = require('./package');
-
-const now = new Date();
 
 module.exports = {
   input: 'src/index.js',
   output: [
     {
-      file: 'dist/index.js',
+      file: `dist/${pkg.name}.js`,
       format: 'cjs',
     },
     {
-      file: 'dist/index.esm.js',
-      format: 'es',
+      file: `dist/${pkg.name}.esm.js`,
+      format: 'esm',
     },
   ],
   external: [
@@ -24,20 +20,6 @@ module.exports = {
     'postcss',
   ],
   plugins: [
-    nodeResolve(),
-    commonjs(),
-    babel({
-      exclude: 'node_modules/**',
-    }),
+    babel(),
   ],
-  banner: `/*!
- * Markdown To Vue Loader v${pkg.version}
- * https://github.com/${pkg.repository}
- *
- * Copyright (c) ${now.getFullYear()} Xkeshi
- * Released under the ${pkg.license} license
- *
- * Date: ${now.toISOString()}
- */
-`,
 };
