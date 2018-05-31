@@ -42,11 +42,9 @@ function normalizeComponent(script, mixin) {
   script = script.replace(REGEXP_MODULE_IMPORTS, (matched, moduleExports, moduleName) => {
     if (moduleExports) {
       return `var ${moduleExports} = require('${moduleName}')`;
-    } else if (moduleName) {
-      return `require('${moduleName}')`;
     }
 
-    return matched;
+    return `require('${moduleName}')`;
   }).replace(REGEXP_MODULE_EXPORTS, 'return');
 
   return `(function () {
