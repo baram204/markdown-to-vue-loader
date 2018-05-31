@@ -1,13 +1,3 @@
-/*!
- * Markdown To Vue Loader v0.4.0
- * https://github.com/xkeshi/markdown-to-vue-loader
- *
- * Copyright (c) 2017 Xkeshi
- * Released under the MIT license
- *
- * Date: 2017-12-19T07:04:37.081Z
- */
-
 'use strict';
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
@@ -56,11 +46,9 @@ function normalizeComponent(script, mixin) {
   script = script.replace(REGEXP_MODULE_IMPORTS, function (matched, moduleExports, moduleName) {
     if (moduleExports) {
       return 'var ' + moduleExports + ' = require(\'' + moduleName + '\')';
-    } else if (moduleName) {
-      return 'require(\'' + moduleName + '\')';
     }
 
-    return matched;
+    return 'require(\'' + moduleName + '\')';
   }).replace(REGEXP_MODULE_EXPORTS, 'return');
 
   return '(function () {\n    var component = (function () {\n      ' + script + '\n    }());\n\n    if (typeof component === \'function\') {\n      component = component();\n    }\n\n    if (typeof component !== \'object\') {\n      component = {};\n    }\n\n    component.mixins = (component.mixins || []).concat([' + mixin + ']);\n\n    return component;\n  }())';

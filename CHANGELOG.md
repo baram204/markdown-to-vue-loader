@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0 (May 31, 2018)
+
+- Requires Webpack v4+ and vue-loader v15+ now.
+
 ## 0.4.0 (Dec 19, 2017)
 
 - Add a namespace class to the root element of a component.

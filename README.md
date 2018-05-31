@@ -1,6 +1,6 @@
 # markdown-to-vue-loader
 
-[![Build Status](https://travis-ci.org/xkeshi/markdown-to-vue-loader.svg)](https://travis-ci.org/xkeshi/markdown-to-vue-loader) [![Downloads](https://img.shields.io/npm/dm/markdown-to-vue-loader.svg)](https://www.npmjs.com/package/markdown-to-vue-loader) [![Version](https://img.shields.io/npm/v/markdown-to-vue-loader.svg)](https://www.npmjs.com/package/markdown-to-vue-loader)
+[![Build Status](https://travis-ci.org/xkeshi/markdown-to-vue-loader.svg)](https://travis-ci.org/xkeshi/markdown-to-vue-loader) [![Coverage Status](https://img.shields.io/codecov/c/github/fengyuanchen/markdown-to-vue-loader.svg)](https://codecov.io/gh/fengyuanchen/markdown-to-vue-loader) [![Downloads](https://img.shields.io/npm/dm/markdown-to-vue-loader.svg)](https://www.npmjs.com/package/markdown-to-vue-loader) [![Version](https://img.shields.io/npm/v/markdown-to-vue-loader.svg)](https://www.npmjs.com/package/markdown-to-vue-loader)
 
 > Markdown to Vue component loader for [Webpack](https://webpack.js.org/).
 
