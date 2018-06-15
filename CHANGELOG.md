@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0 (Jun 15, 2018)
+
+- Added a new option: `markdownItOptions`.
+
 ## 0.5.0 (May 31, 2018)
 
 - Requires Webpack v4+ and vue-loader v15+ now.

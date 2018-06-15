@@ -9,17 +9,13 @@ var postcss = _interopDefault(require('postcss'));
 
 var path = require('path');
 
-var markdown = new MarkdownIt({
-  html: true,
-  linkify: true,
-  typographer: true
-});
 var defaultOptions = {
   componentNamespace: 'component',
   componentWrapper: '',
   escapeApostrophes: false,
   exportSource: false,
   languages: ['vue', 'html'],
+  markdownItOptions: {},
   preClass: '',
   preWrapper: '',
   tableClass: '',
@@ -56,6 +52,11 @@ function normalizeComponent(script, mixin) {
 
 function markdownToVueLoader(source, map) {
   var options = Object.assign({}, defaultOptions, loaderUtils.getOptions(this));
+  var markdown = new MarkdownIt(Object.assign({
+    html: true,
+    linkify: true,
+    typographer: true
+  }, options.markdownItOptions));
   var $ = cheerio.load(markdown.render(source), {
     decodeEntities: true,
     lowerCaseTags: false
