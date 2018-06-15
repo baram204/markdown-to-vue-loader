@@ -11,7 +11,7 @@
 
 - Supports to load a markdown file as a Vue component.
 - Supports to load code blocks (Vue and HTML by default) as Vue components.
-- Supports 8 [options](#options).
+- Supports 10 [options](#options).
 
 ## Getting started
 
@@ -197,6 +197,29 @@ will generate (`example.vue`):
   };
 </script>
 ```
+
+### markdownItOptions
+
+- Type: `Object`
+- Default:
+    ```js
+    {
+      html: true,
+      linkify: true,
+      typographer: true,
+    }
+    ```
+- Example:
+    ```js
+    {
+      typographer: false,
+      highlight(str, lang) {
+        return '';
+      },
+    }
+    ```
+
+The options for built-in markdown parser [**markdown-it**](https://github.com/markdown-it/markdown-it).
 
 ### preClass
 

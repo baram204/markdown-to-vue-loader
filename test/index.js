@@ -241,6 +241,20 @@ describe('markdown-to-vue-loader', () => {
       });
     });
 
+    it('markdownItOptions', (done) => {
+      bundle({
+        entry: './test/fixtures/js.md',
+      }, () => {
+        done();
+      }, {
+        markdownItOptions: {
+          highlight(str, lang) {
+            expect(lang).to.equal('js');
+          },
+        },
+      });
+    });
+
     it('preClass', (done) => {
       bundle({
         entry: './test/fixtures/vue.md',
